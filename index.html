@@ -1,0 +1,879 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscrição - Conferência Amigas de Jesus: Lugar Seguro</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Playfair Display (Serif) & Plus Jakarta Sans (Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@0.454.0"></script>
+  <!-- QR Code Generator CDN (qrcode.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              DEFAULT: '#1c3829',
+              50: '#f2f7f4',
+              100: '#e1ede7',
+              200: '#c5dcd1',
+              700: '#234a36',
+              800: '#1c3829',
+              900: '#12251b',
+            },
+            sage: {
+              50: '#f6f8f6',
+              100: '#eaf0ea',
+              200: '#d7e2d7',
+              300: '#bacbb9',
+              400: '#94ad94',
+              500: '#729072',
+              600: '#5a735a',
+            },
+            botanical: '#fcfdfb',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at top right, #eaf1ec 0%, #f6f8f6 40%, #edf3ee 100%);
+      min-height: 100vh;
+    }
+    .leaf-pattern {
+      background-image: radial-gradient(#2b553e 0.6px, transparent 0.6px), radial-gradient(#2b553e 0.6px, #f7faf8 0.6px);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
+      opacity: 0.25;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col justify-between relative selection:bg-forest selection:text-white">
+  <!-- Decoração de fundo -->
+  <div class="fixed inset-0 leaf-pattern pointer-events-none -z-10"></div>
+
+  <header class="w-full border-b border-sage-200/70 bg-white/70 backdrop-blur-md sticky top-0 z-30 transition-all">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center justify-center p-2 rounded-xl bg-forest-50 text-forest-800 shadow-sm border border-forest-100">
+          <i data-lucide="flower-2" class="w-5 h-5 text-forest"></i>
+        </span>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-forest/80 font-bold block">Conferência</span>
+          <span class="font-serif font-bold text-forest text-base leading-none">Amigas de Jesus</span>
+        </div>
+      </div>
+      <button type="button" id="recoverRegistrationBtn" class="hidden items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-full transition">
+        <i data-lucide="ticket" class="w-3.5 h-3.5"></i>
+        <span>Ver minha inscrição</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
+    <!-- Hero / Destaque do Evento -->
+    <div class="relative overflow-hidden rounded-3xl border border-sage-200 bg-white shadow-xl shadow-forest/5 mb-8">
+      <div class="relative bg-gradient-to-br from-forest-900 via-forest-800 to-forest-700 text-white p-6 sm:p-10 text-center overflow-hidden">
+        <svg class="absolute -right-8 -top-8 w-44 h-44 text-white/10 pointer-events-none transform rotate-45" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M50 0 C70 30 100 50 100 100 C50 100 30 70 0 50 C30 50 50 30 50 0 Z"></path>
+        </svg>
+        <svg class="absolute -left-10 -bottom-10 w-44 h-44 text-white/5 pointer-events-none" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M50 0 C70 30 100 50 100 100 C50 100 30 70 0 50 C30 50 50 30 50 0 Z"></path>
+        </svg>
+        <p class="text-xs sm:text-sm uppercase tracking-[0.3em] font-semibold text-sage-200 mb-3">
+          C O N F E R Ê N C I A &nbsp; A M I G A S &nbsp; D E &nbsp; J E S U S
+        </p>
+        <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-white text-xs sm:text-sm font-medium mb-5 shadow-sm">
+          <i data-lucide="calendar" class="w-4 h-4 text-emerald-300"></i>
+          <span>14 de Novembro&nbsp;&nbsp;|&nbsp;&nbsp;Sábado&nbsp;&nbsp;|</span>
+          <i data-lucide="clock" class="w-4 h-4 text-emerald-300"></i>
+          <span>15h às 21h</span>
+        </div>
+        <h1 class="text-2xl sm:text-4xl lg:text-[38px] font-serif font-bold text-white leading-tight max-w-xl mx-auto drop-shadow-sm">
+          Lugar Seguro
+        </h1>
+        <div class="text-sage-100/90 text-sm sm:text-base mt-4 max-w-xl mx-auto font-light leading-relaxed space-y-4">
+          <p>Um encontro para renovar a fé, viver a presença de Deus e celebrar a comunhão!</p>
+          <p>Uma tarde e noite especiais, com momentos de adoração, comunhão, coffee break e ambientes instagramáveis, preparados com carinho para você!</p>
+          <p>Garanta sua vaga preenchendo a ficha abaixo.</p>
+        </div>
+      </div>
+      <div class="bg-forest-50/60 border-t border-sage-200/80 px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-forest-800">
+        <div class="flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i>
+          <span>Vagas Limitadas &bull; Garanta a sua participação</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Palestrantes -->
+    <section class="mb-8" aria-label="Palestrantes">
+      <div class="text-center mb-5">
+        <p class="text-xs uppercase tracking-[0.25em] font-semibold text-forest/70 mb-1">Quem vai ministrar</p>
+        <h2 class="text-xl sm:text-2xl font-serif font-bold text-forest">Palestrantes</h2>
+      </div>
+      <div class="relative max-w-sm mx-auto">
+        <button type="button" id="speakersPrev" aria-label="Palestrante anterior"
+          class="absolute left-0 top-24 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 border border-sage-200 shadow flex items-center justify-center text-forest">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i>
+        </button>
+        <div id="speakersViewport" class="overflow-hidden px-1 pb-3">
+          <div id="speakersTrack" class="flex transition-transform duration-700 ease-in-out">
+            <article class="speaker-card shrink-0 w-full bg-white rounded-3xl border border-sage-200 shadow-sm p-5 text-center">
+              <div class="w-28 h-28 mx-auto rounded-full overflow-hidden border-4 border-forest-100 bg-sage-100 flex items-center justify-center mb-4">
+                <img src="images/thumbs/angelica.jpg" alt="Pra. Angélica Fontellas" width="336" height="336" decoding="async" class="w-full h-full object-cover object-center" />
+              </div>
+              <h3 class="font-serif font-bold text-forest text-base leading-tight">Pra. Angélica Fontellas</h3>
+              <a href="https://instagram.com/angelicafontellas" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 mt-2 text-xs font-semibold text-forest hover:underline">
+                <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+                <span>@angelicafontellas</span>
+              </a>
+            </article>
+            <article class="speaker-card shrink-0 w-full bg-white rounded-3xl border border-sage-200 shadow-sm p-5 text-center">
+              <div class="w-28 h-28 mx-auto rounded-full overflow-hidden border-4 border-forest-100 bg-sage-100 flex items-center justify-center mb-4">
+                <img src="images/thumbs/adriana-1.jpg" alt="Bispa Adriana Vaz" width="336" height="336" decoding="async" class="w-full h-full object-cover object-center" loading="lazy" />
+              </div>
+              <h3 class="font-serif font-bold text-forest text-base leading-tight">Bispa Adriana Vaz</h3>
+              <a href="https://instagram.com/adrianaferreiravaz" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 mt-2 text-xs font-semibold text-forest hover:underline">
+                <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+                <span>@adrianaferreiravaz</span>
+              </a>
+            </article>
+            <article class="speaker-card shrink-0 w-full bg-white rounded-3xl border border-sage-200 shadow-sm p-5 text-center">
+              <div class="w-28 h-28 mx-auto rounded-full overflow-hidden border-4 border-forest-100 bg-sage-100 flex items-center justify-center mb-4">
+                <img src="images/thumbs/adriana-2.jpg" alt="Pra. Adriana Di Leli" width="336" height="336" decoding="async" class="w-full h-full object-cover object-center" loading="lazy" />
+              </div>
+              <h3 class="font-serif font-bold text-forest text-base leading-tight">Pra. Adriana Di Leli</h3>
+              <a href="https://instagram.com/adrianaleli" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 mt-2 text-xs font-semibold text-forest hover:underline">
+                <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+                <span>@adrianaleli</span>
+              </a>
+            </article>
+          </div>
+        </div>
+        <button type="button" id="speakersNext" aria-label="Próxima palestrante"
+          class="absolute right-0 top-24 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 border border-sage-200 shadow flex items-center justify-center text-forest">
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div id="speakersDots" class="flex justify-center gap-2 mt-1"></div>
+    </section>
+
+    <!-- Formulário -->
+    <form id="registrationForm" name="inscricao" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" class="space-y-8" novalidate>
+      <input type="hidden" name="form-name" value="inscricao" />
+      <input type="hidden" name="registrationCode" id="registrationCode" value="" />
+      <!-- Campo oculto fullName: faz os nomes das 7 primeiras inscrições voltarem a aparecer no Netlify -->
+      <input type="hidden" name="fullName" id="legacyFullName" value="" />
+      <input type="hidden" name="event" value="Conferência Amigas de Jesus: Lugar Seguro (14/11, Sábado, 15h às 21h)" />
+      <p class="hidden"><label>Não preencha este campo: <input name="bot-field" /></label></p>
+
+      <!-- Bloco 1: Dados Pessoais -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-sm relative">
+        <div class="flex items-center gap-3 pb-5 border-b border-slate-100 mb-6">
+          <div class="w-8 h-8 rounded-full bg-forest text-white flex items-center justify-center font-bold text-sm">1</div>
+          <div>
+            <h2 class="text-lg sm:text-xl font-serif font-bold text-forest">Dados da Participante</h2>
+            <p class="text-xs text-slate-500">Preencha as informações abaixo para reservar a sua vaga.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <!-- Nome Completo -->
+          <div class="sm:col-span-2">
+            <label for="fullName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              Nome Completo <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="user" class="w-4 h-4"></i>
+              </span>
+              <input type="text" id="fullName" name="name" required placeholder="Ex.: Maria Eduarda da Silva"
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            </div>
+            <span class="error-msg text-xs text-rose-500 hidden mt-1 block">Por favor, insira o seu nome completo.</span>
+          </div>
+
+          <!-- Data de Nascimento -->
+          <div>
+            <label for="birthDate" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              Data de Nascimento <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="cake" class="w-4 h-4"></i>
+              </span>
+              <input type="date" id="birthDate" name="birthDate" required min="1900-01-01"
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            </div>
+            <span class="error-msg text-xs text-rose-500 hidden mt-1 block">Informe uma data de nascimento válida.</span>
+          </div>
+
+          <!-- Telefone / WhatsApp -->
+          <div>
+            <label for="phone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              WhatsApp / Telefone <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+              </span>
+              <input type="tel" id="phone" name="phone" required placeholder="(11) 98765-4321" maxlength="15"
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            </div>
+            <span class="error-msg text-xs text-rose-500 hidden mt-1 block">Insira um número de WhatsApp válido.</span>
+          </div>
+
+          <!-- E-mail -->
+          <div>
+            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              E-mail <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+              </span>
+              <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com"
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            </div>
+            <span class="error-msg text-xs text-rose-500 hidden mt-1 block">Informe um e-mail válido.</span>
+          </div>
+
+          <!-- Instagram -->
+          <div>
+            <label for="instagram" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              Instagram
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="instagram" class="w-4 h-4"></i>
+              </span>
+              <input type="text" id="instagram" name="instagram" placeholder="@seuinstagram"
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            </div>
+          </div>
+
+          <!-- CEP -->
+          <div class="sm:col-span-2">
+            <label for="cep" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">CEP</label>
+            <input id="cep" name="cep" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000" aria-describedby="cepStatus"
+              class="w-full sm:max-w-xs px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            <p id="cepStatus" role="status" aria-live="polite" class="text-xs text-slate-500 mt-2">Digite o CEP para preencher o endereço. Informe o número da casa no campo separado.</p>
+          </div>
+
+          <!-- Endereço Completo (input type="text" para não substituir o título da inscrição no Netlify) -->
+          <div class="sm:col-span-2">
+            <label for="address" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              Endereço Completo <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+              </span>
+              <input type="text" id="address" name="address" required autocomplete="street-address" placeholder="Rua, complemento, bairro e cidade"
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            </div>
+            <span class="error-msg text-xs text-rose-500 hidden mt-1 block">Informe o seu endereço residencial completo.</span>
+          </div>
+
+          <!-- Número da Casa -->
+          <div>
+            <label for="houseNumber" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              Número da casa <span class="text-rose-500">*</span>
+            </label>
+            <div>
+              <input id="houseNumber" name="houseNumber" type="text" required maxlength="20" placeholder="Ex.: 123, 123A ou S/N" aria-describedby="houseNumberError"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest transition" />
+            </div>
+            <span id="houseNumberError" class="error-msg text-xs text-rose-500 hidden mt-1 block">Informe o número da casa ou S/N para endereço sem número.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco 2: Pagamento -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-sm relative">
+        <div class="flex items-center gap-3 pb-5 border-b border-slate-100 mb-6">
+          <div class="w-8 h-8 rounded-full bg-forest text-white flex items-center justify-center font-bold text-sm">2</div>
+          <div>
+            <h2 class="text-lg sm:text-xl font-serif font-bold text-forest">Pagamento do Evento</h2>
+            <p class="text-xs text-slate-500">Valor da inscrição: <strong>R$ 100,00</strong>. Pague via QR Code Pix ou link externo e envie o comprovante.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+          <!-- Coluna QR Code Pix -->
+          <div class="md:col-span-5 flex flex-col items-center justify-center p-5 bg-sage-50/60 rounded-2xl border border-sage-200 text-center">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-forest uppercase tracking-wider mb-3">
+              <i data-lucide="qr-code" class="w-4 h-4"></i>
+              QR Code Pix Oficial
+            </span>
+            <div class="p-3 bg-white rounded-2xl shadow-sm border border-slate-200/80 mb-3 flex items-center justify-center min-w-[160px] min-h-[160px]">
+              <div id="qrcodeCanvas" class="w-36 h-36 flex items-center justify-center"></div>
+            </div>
+            <p class="text-[11px] text-slate-500 mb-3">Aponte a câmera do seu banco ou use o Pix Copia e Cola.</p>
+            <button type="button" id="copyPixBtn" class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold rounded-xl bg-forest hover:bg-forest-700 text-white shadow transition-all active:scale-[0.98]">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span id="copyPixText">Copiar Pix (Copia e Cola)</span>
+            </button>
+          </div>
+
+          <!-- Coluna Informações e Cartão -->
+          <div class="md:col-span-7 flex flex-col justify-between space-y-4">
+            <div class="p-4 rounded-2xl bg-white border border-slate-200/80 space-y-2.5">
+              <div class="flex items-center justify-between gap-2 text-xs">
+                <span class="text-slate-500">Chave Pix:</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-mono font-semibold text-forest text-xs break-all text-right" id="displayPixKey">seu-email-pix@exemplo.com</span>
+                  <button type="button" id="copyPixKeyOnlyBtn" title="Copiar apenas o e-mail" class="p-1 rounded hover:bg-sage-100 text-slate-400 hover:text-forest transition">
+                    <i data-lucide="clipboard-copy" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-500">Valor da inscrição:</span>
+                <span class="font-bold text-forest text-sm">R$ 100,00</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-500">Beneficiária:</span>
+                <span class="font-medium text-slate-800">NOME DA BENEFICIÁRIA</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-500">Data e Horário:</span>
+                <span class="font-medium text-emerald-800">14/11 (Sábado) &bull; 15h às 21h</span>
+              </div>
+            </div>
+
+            <!-- Botão Link InfinitePay -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 to-sage-50 border border-emerald-100">
+              <p class="text-xs font-bold text-forest mb-1 flex items-center gap-1.5">
+                <i data-lucide="credit-card" class="w-4 h-4 text-emerald-700"></i>
+                Prefere pagar no Cartão de Crédito?
+              </p>
+              <p class="text-xs text-slate-600 mb-3">Pode utilizar o link seguro para parcelamento ou débito.</p>
+              <a id="paymentLinkBtn" href="https://link.infinitepay.io/seu-usuario/seu-link" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-forest-900 bg-white hover:bg-emerald-50 border border-emerald-300 shadow-sm transition">
+                <span>Acessar Link de Pagamento</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-100">
+          <label for="proofFile" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+            Anexar Comprovante de Pagamento (Pix ou Cartão) <span class="text-rose-500">*</span>
+          </label>
+          <div id="dropzone" class="relative group cursor-pointer border-2 border-dashed border-sage-300 hover:border-forest rounded-2xl p-6 text-center transition-all bg-sage-50/30 hover:bg-sage-50/70">
+            <input type="file" id="proofFile" name="proofFile" accept="image/jpeg,image/png,image/webp,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required />
+            <div id="uploadPrompt" class="flex flex-col items-center justify-center space-y-2 pointer-events-none">
+              <div class="p-3 bg-white rounded-full shadow-sm text-forest border border-sage-200 group-hover:scale-105 transition-transform">
+                <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+              </div>
+              <p class="text-sm font-semibold text-slate-700">Clique aqui ou arraste o comprovante</p>
+              <p class="text-xs text-slate-400">Formatos aceitos: JPG, PNG ou PDF (Máx. 5MB)</p>
+            </div>
+            <div id="uploadPreview" class="relative z-20 hidden items-center justify-between p-3 bg-white rounded-xl border border-slate-200">
+              <div class="flex items-center gap-3 truncate">
+                <div class="w-10 h-10 rounded-lg bg-sage-100 text-forest flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="file-check" class="w-5 h-5"></i>
+                </div>
+                <div class="text-left truncate">
+                  <p id="fileNameDisplay" class="text-xs font-semibold text-slate-800 truncate">comprovante.jpg</p>
+                  <p id="fileSizeDisplay" class="text-[11px] text-slate-400">124 KB</p>
+                </div>
+              </div>
+              <button type="button" id="removeFileBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition" title="Remover arquivo">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+          <span id="fileErrorMsg" class="error-msg text-xs text-rose-500 hidden mt-1.5 block">Por favor, anexe o comprovante de pagamento antes de enviar.</span>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button type="submit" id="submitFormBtn" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-forest to-forest-700 hover:from-forest-700 hover:to-forest-900 text-white font-bold text-base shadow-lg shadow-forest/20 flex items-center justify-center gap-2 transition-all transform active:scale-[0.99]">
+          <i data-lucide="check-circle" class="w-5 h-5"></i>
+          <span id="submitButtonText">Confirmar Minha Inscrição</span>
+          <div id="submitSpinner" class="hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </button>
+        <p class="text-center text-xs text-slate-400 mt-3">
+          Após o envio, a inscrição fica a aguardar a conferência do comprovativo pela organização.
+        </p>
+      </div>
+    </form>
+  </main>
+
+  <footer class="mt-12 py-6 text-center text-xs text-slate-500 border-t border-sage-200/60 bg-white/40">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="font-serif font-semibold text-forest text-sm mb-1">Conferência Amigas de Jesus</p>
+      <p>14 de Novembro | Sábado &bull; das 15h às 21h &bull; &ldquo;Lugar Seguro&rdquo;</p>
+    </div>
+  </footer>
+
+  <!-- Modal de Sucesso -->
+  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl border border-sage-200 transform scale-95 transition-transform duration-300">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="sparkle" class="w-8 h-8"></i>
+      </div>
+      <span class="text-xs uppercase font-bold tracking-widest text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+        Inscrição recebida!
+      </span>
+      <h3 class="text-2xl font-serif font-bold text-forest mt-4 mb-2">Te esperamos no Lugar Seguro!</h3>
+      <p class="text-sm text-slate-600 mb-5 leading-relaxed">
+        Obrigada, <span id="modalAttendeeName" class="font-semibold text-slate-800">irmã</span>! Recebemos seu formulário e comprovante. Sua participação será confirmada após a conferência do pagamento pela organização.
+      </p>
+      <div class="bg-sage-50 rounded-2xl p-4 text-left border border-sage-200 mb-6 space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Código de Inscrição:</span>
+          <span id="modalRegistrationCode" class="font-mono font-bold text-forest">#AJ-000000</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Data do Evento:</span>
+          <span class="font-semibold text-slate-800">14 de Novembro (Sábado)</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Horário:</span>
+          <span class="font-semibold text-slate-800">15h às 21h</span>
+        </div>
+      </div>
+      <a id="whatsappBtn" href="#" target="_blank" rel="noopener noreferrer"
+        class="hidden w-full mb-3 items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>Avisar no WhatsApp</span>
+      </a>
+      <button type="button" id="closeModalBtn" class="w-full py-3 px-4 rounded-xl bg-forest hover:bg-forest-700 text-white font-semibold text-sm transition">
+        Concluir e Voltar
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-forest text-white text-xs font-medium shadow-xl border border-forest-700">
+      <i id="toastIcon" data-lucide="check" class="w-4 h-4 text-emerald-300"></i>
+      <span id="toastMsg">Mensagem</span>
+    </div>
+  </div>
+
+  <script>
+    const PIX_KEY = "seu-email-pix@exemplo.com";
+    const PIX_PAYLOAD = "00020101021226780014BR.GOV.BCB.PIX0130seu-email-pix@exemplo.com0222Pagamento luisa-fernan5204000053039865406100.005802BR5923NOME DA BENEFICIÁRIA6015SAO BERNARDO DO62290525QRCCnnbgcgpkF2TqsLUtUNmO8630426C5";
+    const WHATSAPP_NUMBER = "5511999999999";
+    const PAYMENT_LINK = "https://link.infinitepay.io/seu-usuario/seu-link";
+    const STORAGE_KEY = "amigas_jesus_last_reg";
+
+    let selectedFile = null;
+    const cepInput = document.getElementById('cep');
+    const cepStatus = document.getElementById('cepStatus');
+    const addressInput = document.getElementById('address');
+    let cepRequest = null;
+    let cepVersion = 0;
+
+    cepInput.addEventListener('input', async () => {
+      const digits = cepInput.value.replace(/\D/g, '').slice(0, 8);
+      cepInput.value = digits.replace(/^(\d{5})(\d)/, '$1-$2');
+      const version = ++cepVersion;
+      if (cepRequest) cepRequest.abort();
+      cepInput.removeAttribute('aria-invalid');
+      if (digits.length !== 8) {
+        cepStatus.textContent = 'Digite os 8 dígitos do CEP ou preencha o endereço manualmente.';
+        return;
+      }
+      const controller = new AbortController();
+      cepRequest = controller;
+      const addressBeforeLookup = addressInput.value;
+      cepStatus.textContent = 'Buscando endereço...';
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await fetch('https://viacep.com.br/ws/' + digits + '/json/', { signal: controller.signal });
+        if (!response.ok) throw new Error('Falha na consulta');
+        const data = await response.json();
+        if (version !== cepVersion) return;
+        if (data.erro) {
+          cepInput.setAttribute('aria-invalid', 'true');
+          cepStatus.textContent = 'CEP não encontrado. Confira o CEP ou preencha o endereço manualmente.';
+          return;
+        }
+        if (addressInput.value !== addressBeforeLookup) {
+          cepStatus.textContent = 'CEP encontrado. Mantivemos o endereço que você está editando.';
+          return;
+        }
+        addressInput.value = [data.logradouro, data.bairro, [data.localidade, data.uf].filter(Boolean).join(' / ')].filter(Boolean).join(', ');
+        cepStatus.textContent = data.logradouro
+          ? 'Endereço preenchido! Informe o número da casa no campo separado e acrescente o complemento, se houver, ao endereço.'
+          : 'CEP encontrado. Complete a rua e informe o número da casa no campo separado.';
+      } catch (error) {
+        if (version !== cepVersion) return;
+        cepStatus.textContent = 'Não foi possível consultar o CEP. Você pode preencher o endereço manualmente.';
+      } finally {
+        clearTimeout(timeout);
+        if (version === cepVersion) cepRequest = null;
+      }
+    });
+
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+      toastMsg.textContent = message;
+      toastIcon.setAttribute('data-lucide', isError ? 'alert-circle' : 'check');
+      lucide.createIcons();
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    async function copyText(text, msg) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const el = document.createElement('textarea');
+          el.value = text;
+          el.style.position = 'absolute';
+          el.style.left = '-9999px';
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+        }
+        showToast(msg);
+        return true;
+      } catch (e) {
+        showToast('Não foi possível copiar automaticamente.', true);
+        return false;
+      }
+    }
+
+    function updatePaymentUI() {
+      document.getElementById('displayPixKey').textContent = PIX_KEY;
+      document.getElementById('paymentLinkBtn').href = PAYMENT_LINK;
+      const qrContainer = document.getElementById('qrcodeCanvas');
+      qrContainer.innerHTML = '';
+      const pixData = PIX_PAYLOAD || PIX_KEY;
+      try {
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(qrContainer, {
+            text: pixData,
+            width: 144,
+            height: 144,
+            colorDark: "#1c3829",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        } else {
+          throw new Error('QRCode indisponível');
+        }
+      } catch (e) {
+        const img = document.createElement('img');
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&color=1c3829&data=${encodeURIComponent(pixData)}`;
+        img.alt = 'QR Code Pix Oficial';
+        img.className = 'w-full h-full object-contain';
+        qrContainer.appendChild(img);
+      }
+    }
+
+    document.getElementById('phone').addEventListener('input', (e) => {
+      let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+      e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+
+    document.getElementById('copyPixBtn').addEventListener('click', async () => {
+      const ok = await copyText(PIX_PAYLOAD || PIX_KEY, 'Código Pix (Copia e Cola) copiado!');
+      if (ok) {
+        document.getElementById('copyPixText').textContent = 'Código Copiado!';
+        setTimeout(() => { document.getElementById('copyPixText').textContent = 'Copiar Pix (Copia e Cola)'; }, 2500);
+      }
+    });
+
+    document.getElementById('copyPixKeyOnlyBtn').addEventListener('click', () => {
+      copyText(PIX_KEY, 'Chave de e-mail Pix copiada!');
+    });
+
+    const proofFileInput = document.getElementById('proofFile');
+    const uploadPrompt = document.getElementById('uploadPrompt');
+    const uploadPreview = document.getElementById('uploadPreview');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+    const fileSizeDisplay = document.getElementById('fileSizeDisplay');
+    const fileErrorMsg = document.getElementById('fileErrorMsg');
+
+    function clearProof() {
+      proofFileInput.value = '';
+      proofFileInput.classList.remove('pointer-events-none');
+      selectedFile = null;
+      uploadPreview.classList.add('hidden');
+      uploadPreview.classList.remove('flex');
+      uploadPrompt.classList.remove('hidden');
+    }
+
+    proofFileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) {
+        clearProof();
+        return;
+      }
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+      if (!allowedTypes.includes(file.type)) {
+        showToast('Formato inválido. Envie JPG, PNG ou PDF.', true);
+        clearProof();
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('O arquivo excede o limite de 5MB.', true);
+        clearProof();
+        return;
+      }
+      selectedFile = file;
+      fileNameDisplay.textContent = file.name;
+      fileSizeDisplay.textContent = (file.size / 1024).toFixed(1) + ' KB';
+      uploadPrompt.classList.add('hidden');
+      uploadPreview.classList.remove('hidden');
+      uploadPreview.classList.add('flex');
+      proofFileInput.classList.add('pointer-events-none');
+      fileErrorMsg.classList.add('hidden');
+    });
+
+    document.getElementById('removeFileBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      clearProof();
+    });
+
+    function checkSavedRegistration() {
+      const btn = document.getElementById('recoverRegistrationBtn');
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && saved.fullName && saved.code) {
+          btn.classList.remove('hidden');
+          btn.classList.add('inline-flex');
+          btn.onclick = () => {
+            document.getElementById('modalAttendeeName').textContent = saved.fullName.split(' ')[0];
+            document.getElementById('modalRegistrationCode').textContent = '#' + saved.code;
+            setupWhatsAppButton(saved.fullName, saved.code);
+            openModal(document.getElementById('successModal'));
+          };
+        }
+      } catch (e) {}
+    }
+
+    const registrationForm = document.getElementById('registrationForm');
+    registrationForm.addEventListener('reset', () => {
+      ++cepVersion;
+      if (cepRequest) cepRequest.abort();
+      cepInput.removeAttribute('aria-invalid');
+      cepStatus.textContent = 'Digite o CEP para preencher o endereço. Informe o número da casa no campo separado.';
+    });
+
+    const submitBtn = document.getElementById('submitFormBtn');
+    const submitText = document.getElementById('submitButtonText');
+    const submitSpinner = document.getElementById('submitSpinner');
+
+    registrationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let hasErrors = false;
+      const requiredInputs = [
+        { id: 'fullName', minLen: 3 },
+        { id: 'phone', minLen: 14 },
+        { id: 'birthDate', minLen: 10, isDate: true },
+        { id: 'email', minLen: 5, isEmail: true },
+        { id: 'address', minLen: 6 },
+        { id: 'houseNumber', minLen: 1 }
+      ];
+
+      requiredInputs.forEach(item => {
+        const input = document.getElementById(item.id);
+        const err = input.parentElement.parentElement.querySelector('.error-msg');
+        let valid = input.value.trim().length >= item.minLen;
+        if (item.isEmail) valid = valid && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+        if (item.isDate) {
+          const d = new Date(input.value + 'T00:00:00');
+          valid = valid && !isNaN(d) && d <= new Date() && d.getFullYear() >= 1900;
+        }
+        if (!valid) {
+          err?.classList.remove('hidden');
+          input.classList.add('border-rose-400');
+          hasErrors = true;
+        } else {
+          err?.classList.add('hidden');
+          input.classList.remove('border-rose-400');
+        }
+      });
+
+      if (!selectedFile) {
+        fileErrorMsg.classList.remove('hidden');
+        hasErrors = true;
+      } else {
+        fileErrorMsg.classList.add('hidden');
+      }
+
+      if (hasErrors) {
+        showToast('Por favor, preencha todos os campos obrigatórios.', true);
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitSpinner.classList.remove('hidden');
+      submitText.textContent = 'Enviando sua inscrição...';
+
+      const code = 'AJ-' + crypto.randomUUID().slice(0, 6).toUpperCase();
+      const fullName = document.getElementById('fullName').value.trim();
+      const firstName = fullName.split(' ')[0];
+
+      document.getElementById('registrationCode').value = code;
+      document.getElementById('legacyFullName').value = fullName;
+
+      let submissionErrorMessage = 'Não foi possível enviar a inscrição. Verifique a conexão e tente novamente. Seus dados foram mantidos.';
+
+      try {
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.endsWith('.figma.site')) {
+          submissionErrorMessage = 'Envie sua inscrição pelo site publicado no Netlify. O envio não está disponível nesta prévia.';
+          throw new Error('O recebimento deve ser testado no site publicado no Netlify com Forms ativado.');
+        }
+
+        const response = await fetch('/', {
+          method: 'POST',
+          body: new FormData(registrationForm)
+        });
+
+        if (!response.ok) {
+          const errorMessages = {
+            404: 'O formulário ainda não está disponível. É necessário publicar novamente o site com Netlify Forms ativado.',
+            413: 'O comprovante excedeu o limite de envio. Selecione um arquivo menor, de até 5 MB.',
+            429: 'Muitas tentativas de envio. Aguarde alguns minutos e tente novamente.'
+          };
+          submissionErrorMessage = errorMessages[response.status] || 'O serviço de inscrições está indisponível no momento. Tente novamente mais tarde.';
+          throw new Error('HTTP ' + response.status);
+        }
+
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ fullName, code }));
+          checkSavedRegistration();
+        } catch (e) {}
+
+        document.getElementById('modalAttendeeName').textContent = firstName;
+        document.getElementById('modalRegistrationCode').textContent = '#' + code;
+        setupWhatsAppButton(fullName, code);
+        openModal(document.getElementById('successModal'));
+        registrationForm.reset();
+        clearProof();
+      } catch (error) {
+        console.error('Erro ao registrar inscrição:', error);
+        showToast(submissionErrorMessage, true);
+      } finally {
+        submitBtn.disabled = false;
+        submitSpinner.classList.add('hidden');
+        submitText.textContent = 'Confirmar Minha Inscrição';
+      }
+    });
+
+    function setupWhatsAppButton(fullName, code) {
+      const btn = document.getElementById('whatsappBtn');
+      const number = WHATSAPP_NUMBER.replace(/\D/g, '');
+      if (!number) { btn.classList.add('hidden'); btn.classList.remove('flex'); return; }
+      const msg = 'Olá! Acabei de me inscrever na Conferência Amigas de Jesus (14/11).\n' +
+                  'Nome: ' + fullName + '\n' +
+                  'Código da inscrição: #' + code;
+      btn.href = 'https://wa.me/' + number + '?text=' + encodeURIComponent(msg);
+      btn.classList.remove('hidden');
+      btn.classList.add('flex');
+    }
+
+    function openModal(modalEl) {
+      modalEl.classList.remove('hidden');
+      setTimeout(() => {
+        modalEl.classList.remove('opacity-0');
+        modalEl.querySelector('div').classList.remove('scale-95');
+      }, 10);
+    }
+
+    function closeModal(modalEl) {
+      modalEl.classList.add('opacity-0');
+      modalEl.querySelector('div').classList.add('scale-95');
+      setTimeout(() => modalEl.classList.add('hidden'), 300);
+    }
+
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+      closeModal(document.getElementById('successModal'));
+    });
+
+    (function () {
+      const track = document.getElementById('speakersTrack');
+      const viewport = document.getElementById('speakersViewport');
+      const cards = track.querySelectorAll('.speaker-card');
+      const INTERVAL_MS = 5000;
+      const dots = document.getElementById('speakersDots');
+      let current = 0;
+      let timer = null;
+
+      cards.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.type = 'button';
+        d.setAttribute('aria-label', 'Ver palestrante ' + (i + 1));
+        d.className = 'w-2 h-2 rounded-full bg-sage-300 transition-colors';
+        d.addEventListener('click', () => { goTo(i); start(); });
+        dots.appendChild(d);
+      });
+
+      function goTo(i) {
+        current = (i + cards.length) % cards.length;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        [...dots.children].forEach((d, k) => {
+          d.classList.toggle('bg-forest', k === current);
+          d.classList.toggle('bg-sage-300', k !== current);
+        });
+      }
+
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      function start() {
+        stop();
+        timer = setInterval(() => goTo(current + 1), INTERVAL_MS);
+      }
+
+      document.getElementById('speakersPrev').addEventListener('click', () => { goTo(current - 1); start(); });
+      document.getElementById('speakersNext').addEventListener('click', () => { goTo(current + 1); start(); });
+      viewport.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') stop(); });
+      viewport.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') start(); });
+
+      let touchX = null;
+      viewport.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+      viewport.addEventListener('touchend', (e) => {
+        if (touchX === null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+        start();
+      });
+
+      goTo(0);
+      start();
+    })();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      updatePaymentUI();
+      checkSavedRegistration();
+      document.getElementById('birthDate').max = new Date().toISOString().split('T')[0];
+    });
+  </script>
+</body>
+</html>
