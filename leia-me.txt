@@ -1,0 +1,1 @@
+Extraia este ZIP e envie a pasta ao Netlify Drop. Ative Form detection em Forms e publique novamente caso tenha ativado depois do primeiro deploy. Confirme o formulario inscricao e teste o envio com comprovante no dominio publicado. O pagamento deve ser conferido manualmente.
