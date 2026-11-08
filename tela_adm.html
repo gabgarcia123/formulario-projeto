@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel da Organização - Amigas de Jesus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.454.0"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { forest: { DEFAULT: '#1c3829', 50: '#f2f7f4', 700: '#234a36' } },
+          fontFamily: { serif: ['"Playfair Display"', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+  <header class="bg-forest text-white shadow-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 rounded-xl bg-white/10"><i data-lucide="layout-dashboard" class="w-5 h-5 text-emerald-300"></i></div>
+        <div>
+          <span class="text-[11px] uppercase tracking-widest text-emerald-200 font-semibold block">Painel da Organização</span>
+          <h1 class="font-serif font-bold text-lg leading-tight">Conferência Amigas de Jesus</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="refreshBtn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold transition">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i><span>Atualizar</span>
+        </button>
+        <button id="exportCsvBtn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-semibold shadow transition">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i><span>Baixar Planilha (Excel)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <!-- Tela de Senha Simples (só aparece se não tiver entrado pelo link mágico) -->
+    <div id="authCard" class="max-w-sm mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-8 hidden text-center">
+      <div class="w-12 h-12 rounded-2xl bg-forest-50 text-forest flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="lock" class="w-6 h-6"></i>
+      </div>
+      <h2 class="text-lg font-serif font-bold text-forest mb-1">Acesso da Organização</h2>
+      <p class="text-xs text-slate-500 mb-5">
+        Digite a senha da equipe para liberar o painel neste aparelho (só precisa digitar uma única vez).
+      </p>
+      <form id="loginForm" class="space-y-3">
+        <input type="password" id="pinInput" placeholder="Senha de acesso..."
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-center text-sm focus:outline-none focus:ring-2 focus:ring-forest/30" />
+        <p id="loginError" class="text-xs text-rose-500 hidden">Senha incorreta. Tente novamente.</p>
+        <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-forest hover:bg-forest-700 text-white font-semibold text-sm transition">
+          Acessar Inscrições
+        </button>
+      </form>
+    </div>
+
+    <!-- Conteúdo Principal do Painel -->
+    <div id="dashboardContent" class="space-y-6 hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 font-medium uppercase">Total de Inscritas</p>
+            <p id="totalCount" class="text-2xl font-bold text-forest mt-1">0</p>
+          </div>
+          <div class="p-3 rounded-xl bg-forest-50 text-forest"><i data-lucide="users" class="w-6 h-6"></i></div>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 font-medium uppercase">Marcadas neste aparelho</p>
+            <p id="verifiedCount" class="text-2xl font-bold text-emerald-600 mt-1">0</p>
+          </div>
+          <div class="p-3 rounded-xl bg-emerald-50 text-emerald-600"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 font-medium uppercase">Valor Total (R$ 100/inscrição)</p>
+            <p id="totalAmount" class="text-2xl font-bold text-slate-800 mt-1">R$ 0,00</p>
+          </div>
+          <div class="p-3 rounded-xl bg-amber-50 text-amber-600"><i data-lucide="wallet" class="w-6 h-6"></i></div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div class="relative flex-grow max-w-md">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+          <input type="text" id="searchInput" placeholder="Buscar por nome, telefone, endereço ou código..."
+            class="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-forest/30" />
+        </div>
+        <span id="statusText" class="text-xs text-slate-500"></span>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                <th class="py-3.5 px-4">Pago</th>
+                <th class="py-3.5 px-4">Nome da Participante</th>
+                <th class="py-3.5 px-4">WhatsApp / E-mail</th>
+                <th class="py-3.5 px-4">Nascimento</th>
+                <th class="py-3.5 px-4">Endereço Completo</th>
+                <th class="py-3.5 px-4">Data Envio</th>
+                <th class="py-3.5 px-4 text-right">Comprovante</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody" class="divide-y divide-slate-100 text-xs"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Senha simples para você e sua amiga (pode alterar se quiser)
+    const SENHA_EQUIPE = "SUA_SENHA_AQUI";
+
+    // Seu token já embutido (invertido para não ficar exposto em texto puro)
+    const ENCODED_TOKEN = ""; // Configure seu token Netlify de forma segura
+    const AUTH_STORAGE = "amigas_painel_autorizado";
+    const VERIFIED_STORAGE = "verified_subs_amigas";
+
+    let allSubmissions = [];
+    let verifiedIds = JSON.parse(localStorage.getItem(VERIFIED_STORAGE) || "{}");
+
+    function getApiToken() {
+      return ENCODED_TOKEN.split("").reverse().join("");
+    }
+
+    function getParticipantName(sub) {
+      const d = sub.data || {};
+      return d.fullName || d.name || sub.name || sub.first_name || "(Sem nome)";
+    }
+
+    function formatDateBR(dateStr) {
+      if (!dateStr) return "-";
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        const [y, m, d] = dateStr.split("-");
+        return `${d}/${m}/${y}`;
+      }
+      const d = new Date(dateStr);
+      return isNaN(d) ? dateStr : d.toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+    }
+
+    function updateSummary() {
+      const total = allSubmissions.length;
+      const verified = allSubmissions.filter(s => verifiedIds[s.id]).length;
+      document.getElementById("totalCount").textContent = total;
+      document.getElementById("verifiedCount").textContent = `${verified} / ${total}`;
+      document.getElementById("totalAmount").textContent = `R$ ${(total * 100).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
+    }
+
+    function renderTable(filter = "") {
+      const tbody = document.getElementById("submissionsTableBody");
+      tbody.innerHTML = "";
+      const q = filter.toLowerCase().trim();
+
+      const filtered = allSubmissions.filter(sub => {
+        const d = sub.data || {};
+        const name = getParticipantName(sub).toLowerCase();
+        const phone = (d.phone || "").toLowerCase();
+        const address = `${d.address || ""} ${d.houseNumber || ""}`.toLowerCase();
+        const code = (d.registrationCode || "").toLowerCase();
+        return !q || name.includes(q) || phone.includes(q) || address.includes(q) || code.includes(q);
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Nenhuma inscrição encontrada.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(sub => {
+        const d = sub.data || {};
+        const name = getParticipantName(sub);
+        const code = d.registrationCode || "-";
+        const phone = d.phone || "";
+        const cleanPhone = phone.replace(/\D/g, "");
+        const waLink = cleanPhone ? `https://wa.me/55${cleanPhone}?text=${encodeURIComponent(`Olá ${name.split(" ")[0]}! Confirmamos sua inscrição (${code}) na Conferência Amigas de Jesus!`)}` : "#";
+        const proofUrl = d.proofFile?.url || "";
+        const isChecked = !!verifiedIds[sub.id];
+
+        const tr = document.createElement("tr");
+        tr.className = `hover:bg-slate-50/80 transition ${isChecked ? "bg-emerald-50/40" : ""}`;
+        tr.innerHTML = `
+          <td class="py-3.5 px-4">
+            <input type="checkbox" data-id="${sub.id}" ${isChecked ? "checked" : ""} class="verify-check w-4 h-4 rounded text-forest cursor-pointer" />
+          </td>
+          <td class="py-3.5 px-4">
+            <p class="font-bold text-slate-800 text-sm">${name}</p>
+            <span class="inline-block mt-0.5 font-mono text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">${code}</span>
+          </td>
+          <td class="py-3.5 px-4 space-y-1">
+            ${phone ? `<a href="${waLink}" target="_blank" class="inline-flex items-center gap-1 font-semibold text-emerald-700 hover:underline"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i>${phone}</a>` : "-"}
+            <p class="text-slate-500">${d.email || "-"}</p>
+            ${d.instagram ? `<p class="text-slate-400">${d.instagram}</p>` : ""}
+          </td>
+          <td class="py-3.5 px-4 font-medium text-slate-700">${formatDateBR(d.birthDate)}</td>
+          <td class="py-3.5 px-4 max-w-xs">
+            <p class="text-slate-700">${d.address || "-"}${d.houseNumber ? `, Nº ${d.houseNumber}` : ""}</p>
+            ${d.cep ? `<p class="text-[11px] text-slate-400">CEP: ${d.cep}</p>` : ""}
+          </td>
+          <td class="py-3.5 px-4 text-slate-500">${formatDateBR(sub.created_at)}</td>
+          <td class="py-3.5 px-4 text-right">
+            ${proofUrl ? `<a href="${proofUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-forest text-white font-semibold hover:bg-forest-700 transition">Ver Comprovante</a>` : '<span class="text-rose-500">Sem anexo</span>'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.querySelectorAll(".verify-check").forEach(chk => {
+        chk.addEventListener("change", (e) => {
+          verifiedIds[e.target.getAttribute("data-id")] = e.target.checked;
+          localStorage.setItem(VERIFIED_STORAGE, JSON.stringify(verifiedIds));
+          updateSummary();
+          renderTable(document.getElementById("searchInput").value);
+        });
+      });
+
+      lucide.createIcons();
+    }
+
+    async function loadSubmissions() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("acesso")?.toLowerCase() === SENHA_EQUIPE) {
+        localStorage.setItem(AUTH_STORAGE, "sim");
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+
+      const isAuthorized = localStorage.getItem(AUTH_STORAGE) === "sim";
+      const authCard = document.getElementById("authCard");
+      const dash = document.getElementById("dashboardContent");
+      const statusText = document.getElementById("statusText");
+
+      if (!isAuthorized) {
+        authCard.classList.remove("hidden");
+        dash.classList.add("hidden");
+        return;
+      }
+
+      authCard.classList.add("hidden");
+      dash.classList.remove("hidden");
+      statusText.textContent = "Carregando inscrições...";
+
+      try {
+        const token = getApiToken();
+        const sitesRes = await fetch("https://api.netlify.com/api/v1/sites", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!sitesRes.ok) throw new Error("Falha ao comunicar com o Netlify.");
+        const sites = await sitesRes.json();
+
+        let combined = [];
+        for (const site of sites) {
+          const subRes = await fetch(`https://api.netlify.com/api/v1/sites/${site.id}/submissions?per_page=100`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (subRes.ok) {
+            const subs = await subRes.json();
+            combined = combined.concat(subs);
+          }
+        }
+
+        allSubmissions = combined.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        statusText.textContent = `Atualizado às ${new Date().toLocaleTimeString("pt-BR")} (${allSubmissions.length} inscrições)`;
+        updateSummary();
+        renderTable(document.getElementById("searchInput").value);
+      } catch (err) {
+        statusText.textContent = "Erro ao carregar: " + err.message;
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const typed = document.getElementById("pinInput").value.trim().toLowerCase();
+      if (typed === SENHA_EQUIPE) {
+        localStorage.setItem(AUTH_STORAGE, "sim");
+        document.getElementById("loginError").classList.add("hidden");
+        loadSubmissions();
+      } else {
+        document.getElementById("loginError").classList.remove("hidden");
+      }
+    });
+
+    document.getElementById("refreshBtn").addEventListener("click", loadSubmissions);
+    document.getElementById("searchInput").addEventListener("input", (e) => renderTable(e.target.value));
+
+    document.getElementById("exportCsvBtn").addEventListener("click", () => {
+      if (!allSubmissions.length) return;
+      const headers = ["Pago", "Codigo", "Nome Completo", "Data Nascimento", "WhatsApp", "Email", "Instagram", "CEP", "Endereco", "Numero", "Data Envio", "Link Comprovante"];
+      const rows = allSubmissions.map(sub => {
+        const d = sub.data || {};
+        return [
+          verifiedIds[sub.id] ? "SIM" : "NAO",
+          d.registrationCode || "",
+          getParticipantName(sub),
+          formatDateBR(d.birthDate),
+          d.phone || "",
+          d.email || "",
+          d.instagram || "",
+          d.cep || "",
+          d.address || "",
+          d.houseNumber || "",
+          formatDateBR(sub.created_at),
+          d.proofFile?.url || ""
+        ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(";");
+      });
+      const csv = "\uFEFF" + [headers.join(";"), ...rows].join("\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+      a.download = `inscricoes-amigas-de-jesus.csv`;
+      a.click();
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      loadSubmissions();
+    });
+  </script>
+</body>
+</html>
